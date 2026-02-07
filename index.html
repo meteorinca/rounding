@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rounding & Estimation Practice</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <h1>Rounding & Estimation</h1>
+      <button class="menuBtn" id="menuBtn" aria-label="Open info menu">☰ Info</button>
+    </header>
+
+    <div class="intro">
+      <p><strong>Rounding</strong> means making a number simpler but still close to the original.</p>
+      <p>Look at the digit to the right of the place you’re rounding to. 5 or more → round up. 4 or less → stay.</p>
+      <p class="tip">Tip: Write your rounded answer in the box for each problem.</p>
+    </div>
+
+    <div class="controls">
+      <div class="control-left">
+        <label for="count">Problems</label>
+        <select id="count">
+          <option>6</option>
+          <option selected>10</option>
+          <option>12</option>
+          <option>15</option>
+        </select>
+
+        <label for="place">Round to</label>
+        <select id="place">
+          <option value="mixed" selected>Mixed</option>
+          <option value="ten">Nearest ten</option>
+          <option value="hundred">Nearest hundred</option>
+          <option value="thousand">Nearest thousand</option>
+          <option value="tenth">Nearest tenth</option>
+          <option value="hundredth">Nearest hundredth</option>
+          <option value="thousandth">Nearest thousandth</option>
+        </select>
+      </div>
+
+      <div class="control-right">
+        <button class="btn btn-new" id="btnNew">New Set</button>
+        <button class="btn btn-check" id="btnCheck">Check Answers</button>
+      </div>
+    </div>
+
+    <div id="quiz"></div>
+
+    <div class="feedback" id="globalFeedback"></div>
+  </div>
+
+  <aside class="infoPanel" id="infoPanel" aria-hidden="true">
+    <div class="infoHeader">
+      <h2>More Info</h2>
+      <button class="closeBtn" id="closeBtn" aria-label="Close info menu">✕</button>
+    </div>
+
+    <div class="infoSection">
+      <h3>Quick Steps</h3>
+      <ol>
+        <li>Find the place you are rounding to.</li>
+        <li>Look one digit to the right.</li>
+        <li>5–9: round up. 0–4: stay the same.</li>
+      </ol>
+    </div>
+
+    <div class="infoSection">
+      <h3>Sample (write your own later)</h3>
+      <img src="sample.png" alt="Sample work placeholder" />
+    </div>
+
+    <div class="infoSection">
+      <h3>Hints (write your own later)</h3>
+      <img src="hints.png" alt="Hints placeholder" />
+    </div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
