@@ -1,83 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rounding & Estimation Practice</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rounding Toolkit – Multi-Step Rounding Practice for 3rd & 4th Grade</title>
+    <meta name="description" content="Practice rounding with single-step and multi-step word problems. Build confidence rounding to tens, hundreds, and thousands!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <header class="topbar">
-      <h1>Rounding & Estimation</h1>
-      <button class="menuBtn" id="menuBtn" aria-label="Open info menu">☰ Info</button>
-    </header>
+    <div class="container">
+        <h1>🎯 Rounding Toolkit</h1>
+        <div class="subtitle">Master rounding with fun single-step and multi-step word problems!</div>
 
-    <div class="intro">
-      <p><strong>Rounding</strong> means making a number simpler but still close to the original.</p>
-      <p>Look at the digit to the right of the place you’re rounding to. 5 or more → round up. 4 or less → stay.</p>
-      <p class="tip">Tip: Write your rounded answer in the box for each problem.</p>
+        <!-- Intro Section -->
+        <div class="intro">
+            <p><strong>Rounding</strong> helps us estimate and work with friendlier numbers. It's a super useful skill for everyday math!</p>
+            <p class="tip">💡 <strong>Pro Tip:</strong> Find your target place, then look at the digit to the right. If it's 5 or more, round up. If it's 0-4, keep it the same!</p>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="progress-tracker" id="progressTracker">
+            <div class="progress-label">
+                <span class="progress-icon">🏆</span>
+                <span id="progressText">Session Score: 0 / 0</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Cards -->
+        <div class="reference-cards" id="reference-cards">
+            <div class="ref-card">
+                <div class="ref-title">Round Down (0-4)</div>
+                <div class="ref-formula">If the digit to the right is 0, 1, 2, 3, or 4, keep the target digit the same.</div>
+                <div class="ref-example">73 → 70 (ones digit is 3, less than 5)</div>
+            </div>
+            <div class="ref-card">
+                <div class="ref-title">Round Up (5-9)</div>
+                <div class="ref-formula">If the digit to the right is 5, 6, 7, 8, or 9, increase the target digit by 1.</div>
+                <div class="ref-example">68 → 70 (ones digit is 8, 5 or more)</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-left">
+                <label>Problems:</label>
+                <select id="count">
+                    <option value="3">3</option>
+                    <option value="5" selected>5</option>
+                    <option value="8">8</option>
+                </select>
+                <label>Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy (Simple Rounding)</option>
+                    <option value="medium" selected>Medium (Two-Step Word Problems)</option>
+                    <option value="hard">Hard (Multi-Step Word Problems)</option>
+                </select>
+            </div>
+            <div class="control-right">
+                <button class="btn btn-new" id="btnNew">🔄 New Problems</button>
+            </div>
+        </div>
+
+        <!-- Quiz Area -->
+        <div id="quiz"></div>
+
+        <!-- Global Feedback -->
+        <div class="feedback" id="globalFeedback"></div>
+
+        <!-- Tips & Learning Section -->
+        <div class="tips-container">
+            <details id="hints-details">
+                <summary>📚 Rounding Tips & Methods</summary>
+                <div class="tips-content">
+                    <div class="step">
+                        <div><span class="step-number">1</span> <strong>Find the Target Digit</strong></div>
+                        <div class="example">Decide which place you're rounding to: tens, hundreds, or thousands. Circle or underline that digit.</div>
+                    </div>
+                    <div class="step">
+                        <div><span class="step-number">2</span> <strong>Look to the Right</strong></div>
+                        <div class="example">Check the digit immediately to the RIGHT of your target digit. This is the "decider" digit!</div>
+                    </div>
+                    <div class="step">
+                        <div><span class="step-number">3</span> <strong>5 or More? Round Up!</strong></div>
+                        <div class="example">If the "decider" digit is 5, 6, 7, 8, or 9 → add 1 to your target digit and turn everything after to zeros. If it's 0, 1, 2, 3, 4 → keep the target digit and turn everything after to zeros.</div>
+                    </div>
+                    <div class="step">
+                        <div><span class="step-number">💡</span> <strong>Multi-Step Problems</strong></div>
+                        <div class="example">For word problems: Solve all the math steps FIRST to get an exact answer, THEN round that final answer to the place the problem asks for.</div>
+                    </div>
+                </div>
+            </details>
+        </div>
     </div>
 
-    <div class="controls">
-      <div class="control-left">
-        <label for="count">Problems</label>
-        <select id="count">
-          <option>6</option>
-          <option selected>10</option>
-          <option>12</option>
-          <option>15</option>
-        </select>
+    <!-- Floating Check Button -->
+    <button class="floating-check-btn" id="btnCheck">✓ Check All Answers</button>
 
-        <label for="place">Round to</label>
-        <select id="place">
-          <option value="mixed" selected>Mixed</option>
-          <option value="ten">Nearest ten</option>
-          <option value="hundred">Nearest hundred</option>
-          <option value="thousand">Nearest thousand</option>
-          <option value="tenth">Nearest tenth</option>
-          <option value="hundredth">Nearest hundredth</option>
-          <option value="thousandth">Nearest thousandth</option>
-        </select>
-      </div>
-
-      <div class="control-right">
-        <button class="btn btn-new" id="btnNew">New Set</button>
-        <button class="btn btn-check" id="btnCheck">Check Answers</button>
-      </div>
+    <!-- Fireworks Overlay -->
+    <div class="fireworks-overlay" id="fireworksOverlay">
+        <canvas id="fireworksCanvas"></canvas>
+        <div class="fireworks-message" id="fireworksMessage">🎯 ROUNDING CHAMPION! 🎯</div>
+        <button class="fireworks-close-btn" id="fireworksClose">More Problems ➔</button>
     </div>
 
-    <div id="quiz"></div>
-
-    <div class="feedback" id="globalFeedback"></div>
-  </div>
-
-  <aside class="infoPanel" id="infoPanel" aria-hidden="true">
-    <div class="infoHeader">
-      <h2>More Info</h2>
-      <button class="closeBtn" id="closeBtn" aria-label="Close info menu">✕</button>
-    </div>
-
-    <div class="infoSection">
-      <h3>Quick Steps</h3>
-      <ol>
-        <li>Find the place you are rounding to.</li>
-        <li>Look one digit to the right.</li>
-        <li>5–9: round up. 0–4: stay the same.</li>
-      </ol>
-    </div>
-
-    <div class="infoSection">
-      <h3>Sample (write your own later)</h3>
-      <img src="sample.png" alt="Sample work placeholder" />
-    </div>
-
-    <div class="infoSection">
-      <h3>Hints (write your own later)</h3>
-      <img src="hints.png" alt="Hints placeholder" />
-    </div>
-  </aside>
-
-  <script src="app.js"></script>
+    <!-- External JS files (order matters!) -->
+    <script src="problemdata.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
