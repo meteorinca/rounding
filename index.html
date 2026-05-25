@@ -1,83 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rounding & Estimation Practice</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Rounding Quest | Multi-Step Word Problems</title>
+  <style>
+    /* ----- Global Variables & Reset ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #818cf8;
+      --secondary: #0d9488;
+      --accent: #db2777;
+      --success: #059669;
+      --warning: #d97706;
+      --error: #dc2626;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 4px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 10px 20px rgba(0,0,0,0.06);
+      --transition: 0.2s ease;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2ff 0%, #f0fdfa 50%, #fef2f2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1050px;
+      width: 100%;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(18px);
+      border-radius: 2.5rem;
+      padding: 2rem 2.2rem;
+      box-shadow: var(--shadow-md), 0 20px 35px rgba(79,70,229,0.08);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #4f46e5, #0d9488);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .subtitle {
+      color: #4b5563;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Tabs grid */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.6rem;
+      margin: 1.8rem 0 1.5rem;
+    }
+
+    .tab-btn {
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 2.5rem;
+      padding: 0.7rem 0.3rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 10px 15px rgba(79,70,229,0.3);
+    }
+
+    .tab-icon {
+      font-size: 1.4rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #f8fafc;
+      padding: 1rem 1.4rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    select, .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      border: 1px solid var(--gray-300);
+      font-weight: 600;
+      background: white;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 8px 16px rgba(79,70,229,0.25);
+    }
+
+    .btn-primary:hover {
+      background: #4338ca;
+    }
+
+    .problem-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin: 1.8rem 0;
+    }
+
+    .problem-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+
+    .prob-num {
+      background: #e0e7ff;
+      color: #3730a3;
+      font-weight: 800;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .problem-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .story-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    .answer-area {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .blank-input {
+      width: 130px;
+      padding: 0.5rem;
+      border: 2px dashed var(--gray-300);
+      border-radius: 1rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #f9fafb;
+      transition: 0.2s;
+    }
+
+    .blank-input:focus {
+      border-color: var(--primary);
+      outline: none;
+      background: #eef2ff;
+    }
+
+    .feedback-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-left: auto;
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .correct-fb { color: var(--success); }
+    .wrong-fb { color: var(--error); }
+
+    .info-box {
+      background: #f0fdf4;
+      border-left: 5px solid var(--secondary);
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      margin: 1rem 0 1.8rem;
+    }
+
+    .hint-panel {
+      background: #fef9c3;
+      border-radius: 1rem;
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+    
+    .step-hint {
+      font-size: 0.9rem;
+      color: #92400e;
+      background: #fffbeb;
+      padding: 0.4rem 1rem;
+      border-radius: 1rem;
+      display: inline-block;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.2rem; }
+      .story-text { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header class="topbar">
-      <h1>Rounding & Estimation</h1>
-      <button class="menuBtn" id="menuBtn" aria-label="Open info menu">☰ Info</button>
-    </header>
+<div class="container">
+  <h1>🎯 Rounding Quest</h1>
+  <div class="subtitle">Estimate · Round · Solve multi-step problems</div>
 
-    <div class="intro">
-      <p><strong>Rounding</strong> means making a number simpler but still close to the original.</p>
-      <p>Look at the digit to the right of the place you’re rounding to. 5 or more → round up. 4 or less → stay.</p>
-      <p class="tip">Tip: Write your rounded answer in the box for each problem.</p>
-    </div>
-
-    <div class="controls">
-      <div class="control-left">
-        <label for="count">Problems</label>
-        <select id="count">
-          <option>6</option>
-          <option selected>10</option>
-          <option>12</option>
-          <option>15</option>
-        </select>
-
-        <label for="place">Round to</label>
-        <select id="place">
-          <option value="mixed" selected>Mixed</option>
-          <option value="ten">Nearest ten</option>
-          <option value="hundred">Nearest hundred</option>
-          <option value="thousand">Nearest thousand</option>
-          <option value="tenth">Nearest tenth</option>
-          <option value="hundredth">Nearest hundredth</option>
-          <option value="thousandth">Nearest thousandth</option>
-        </select>
-      </div>
-
-      <div class="control-right">
-        <button class="btn btn-new" id="btnNew">New Set</button>
-        <button class="btn btn-check" id="btnCheck">Check Answers</button>
-      </div>
-    </div>
-
-    <div id="quiz"></div>
-
-    <div class="feedback" id="globalFeedback"></div>
+  <!-- Tab selection for difficulty levels -->
+  <div class="tabs" id="tabContainer">
+    <button class="tab-btn active" data-tab="easy">🌱 <span>Easy</span></button>
+    <button class="tab-btn" data-tab="medium">🌿 <span>Medium</span></button>
+    <button class="tab-btn" data-tab="hard">🌳 <span>Hard</span></button>
   </div>
 
-  <aside class="infoPanel" id="infoPanel" aria-hidden="true">
-    <div class="infoHeader">
-      <h2>More Info</h2>
-      <button class="closeBtn" id="closeBtn" aria-label="Close info menu">✕</button>
+  <!-- Controls -->
+  <div class="controls">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <label>📋 Problems:</label>
+      <select id="problemCount">
+        <option value="3">3</option>
+        <option value="5" selected>5</option>
+        <option value="8">8</option>
+      </select>
     </div>
+    <button class="btn btn-primary" id="newSetBtn">🔄 New Set</button>
+  </div>
 
-    <div class="infoSection">
-      <h3>Quick Steps</h3>
-      <ol>
-        <li>Find the place you are rounding to.</li>
-        <li>Look one digit to the right.</li>
-        <li>5–9: round up. 0–4: stay the same.</li>
-      </ol>
-    </div>
+  <!-- Dynamic hint / info area -->
+  <div id="topicInfo" class="info-box">
+    💡 <strong>Easy Rounding:</strong> Round numbers to the nearest ten or hundred in simple real-life situations.
+  </div>
 
-    <div class="infoSection">
-      <h3>Sample (write your own later)</h3>
-      <img src="sample.png" alt="Sample work placeholder" />
-    </div>
+  <!-- Problems container -->
+  <div id="problemsContainer" class="problem-grid"></div>
 
-    <div class="infoSection">
-      <h3>Hints (write your own later)</h3>
-      <img src="hints.png" alt="Hints placeholder" />
-    </div>
-  </aside>
+  <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+    <button class="btn btn-primary" id="checkAllBtn">✅ Check All Answers</button>
+  </div>
+  <div id="globalMessage" style="text-align: center; margin-top: 1rem; font-weight: 600;"></div>
+</div>
 
-  <script src="app.js"></script>
+<!-- Import problem data from external file -->
+<script src="problemdata.js"></script>
+
+<script>
+  (function() {
+    // ----- State -----
+    let currentDifficulty = 'easy';
+    let currentProblems = [];
+    
+    // ----- Helpers -----
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    
+    // Get problems from external data file (ProblemData is expected from problemdata.js)
+    function getProblemsByDifficulty(difficulty, count) {
+      if (typeof ProblemData === 'undefined' || !ProblemData[difficulty]) {
+        console.error('ProblemData not loaded or missing difficulty:', difficulty);
+        return [];
+      }
+      const pool = ProblemData[difficulty];
+      if (!pool || pool.length === 0) return [];
+      // Shuffle and pick 'count' problems (allow repeats if pool smaller than count)
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      const selected = [];
+      for (let i = 0; i < count; i++) {
+        selected.push(shuffled[i % shuffled.length]);
+      }
+      return selected;
+    }
+
+    // ----- Render & Update -----
+    const topicInfoMap = {
+      easy: "🌱 <strong>Easy Rounding:</strong> Round numbers to the nearest ten or hundred in simple real-life situations.",
+      medium: "🌿 <strong>Medium Rounding:</strong> Multi-step problems: estimate totals by rounding then adding/subtracting.",
+      hard: "🌳 <strong>Hard Rounding:</strong> Multi-step word problems with larger numbers, multiple operations, and rounding to various places."
+    };
+
+    function updateUI() {
+      document.getElementById('topicInfo').innerHTML = `💡 ${topicInfoMap[currentDifficulty]}`;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === currentDifficulty);
+      });
+      generateNewSet();
+    }
+
+    function generateNewSet() {
+      const count = parseInt(document.getElementById('problemCount').value);
+      currentProblems = getProblemsByDifficulty(currentDifficulty, count);
+      renderProblems();
+      document.getElementById('globalMessage').innerText = '';
+    }
+
+    function renderProblems() {
+      const container = document.getElementById('problemsContainer');
+      if (!currentProblems.length) {
+        container.innerHTML = '<p>No problems available for this difficulty.</p>';
+        return;
+      }
+      
+      container.innerHTML = currentProblems.map((p, idx) => {
+        // Create story text with placeholder for input
+        const storyHtml = p.story.replace('___', `<input class="blank-input" id="ans${idx}" placeholder="?" data-index="${idx}">`);
+        
+        return `
+          <div class="problem-card" data-index="${idx}">
+            <div class="prob-num">${idx+1}</div>
+            <div class="problem-content">
+              <div class="story-text">${storyHtml}</div>
+              ${p.hint ? `<div class="step-hint">💭 ${p.hint}</div>` : ''}
+            </div>
+            <span class="feedback-text" id="fb${idx}"></span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function checkAll() {
+      let correctCount = 0;
+      currentProblems.forEach((p, idx) => {
+        const input = document.getElementById(`ans${idx}`);
+        const fb = document.getElementById(`fb${idx}`);
+        if (!input || !fb) return;
+        
+        let userAnswer = input.value.trim();
+        let expected = p.answer.toString().toLowerCase();
+        let isCorrect = false;
+        
+        // Numeric comparison (allow slight flexibility)
+        if (!isNaN(userAnswer) && !isNaN(expected)) {
+          isCorrect = parseFloat(userAnswer) === parseFloat(expected);
+        } else {
+          // Text comparison (lowercase)
+          isCorrect = userAnswer.toLowerCase() === expected;
+        }
+        
+        if (isCorrect) {
+          correctCount++;
+          input.style.border = '2px solid #059669';
+          fb.innerHTML = '✅';
+          fb.className = 'feedback-text correct-fb';
+        } else {
+          input.style.border = '2px solid #dc2626';
+          fb.innerHTML = `❌ (${p.answer})`;
+          fb.className = 'feedback-text wrong-fb';
+        }
+      });
+      document.getElementById('globalMessage').innerText = `${correctCount}/${currentProblems.length} correct`;
+    }
+
+    // Event Listeners
+    document.getElementById('tabContainer').addEventListener('click', (e) => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      currentDifficulty = btn.dataset.tab;
+      updateUI();
+    });
+
+    document.getElementById('newSetBtn').addEventListener('click', generateNewSet);
+    document.getElementById('checkAllBtn').addEventListener('click', checkAll);
+    document.getElementById('problemCount').addEventListener('change', generateNewSet);
+
+    // Init
+    updateUI();
+  })();
+</script>
 </body>
 </html>
